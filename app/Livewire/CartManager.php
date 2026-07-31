@@ -2,8 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Models\OrderLog;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\StoreSetting;
+use App\Services\WhatsAppMessageBuilder;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
 
@@ -206,11 +209,10 @@ class CartManager extends Component
 
     /**
      * Send order to WhatsApp after validating buyer form.
-     * Actual WhatsApp message building will be implemented in task 12.2.
      *
-     * Validates: Requirements 4.6, 5.1, 5.2
+     * Validates: Requirements 4.6, 5.1, 5.2, 5.3, 5.4, 5.5
      */
-    public function sendToWhatsApp(): void
+    public function sendToWhatsApp()
     {
         $this->validate();
 
@@ -219,9 +221,55 @@ class CartManager extends Component
             return;
         }
 
-        // Placeholder: WhatsApp message building and order log
-        // will be implemented in task 12.2
-        session()->flash('success', 'Pesanan berhasil disiapkan.');
+        // Get store settings
+        $settings = StoreSetting::instance();
+
+        if (!$settings || empty($settings->wa_numbers)) {
+            session()->flash('error', 'Pengaturan toko belum dikonfigurasi.');
+            return;
+        }
+
+        $waNumbers = $settings->wa_numbers;
+        $storeName = $settings->store_name;
+        $waTemplate = $settings->wa_template;
+
+        // WA number rotation using session-based round-robin
+        $lastIndex = session('wa_last_index', 0);
+        $selectedIndex = $lastIndex % count($waNumbers);
+        $selectedPhone = $waNumbers[$selectedIndex];
+        session(['wa_last_index' => $selectedIndex + 1]);
+
+        // Build buyer data
+        $buyerData = [
+            'name' => $this->name,
+            'phone' => $this->phone,
+            'address' => $this->address,
+            'notes' => $this->notes,
+        ];
+
+        // Build WhatsApp URL
+        $url = WhatsAppMessageBuilder::build(
+            $selectedPhone,
+            $storeName,
+            $this->cart,
+            $buyerData,
+            $waTemplate
+        );
+
+        // Save order log
+        OrderLog::create([
+            'items_json' => $this->cart,
+            'buyer_info_json' => $buyerData,
+            'total_amount' => $this->getGrandTotal(),
+            'wa_number_used' => $selectedPhone,
+        ]);
+
+        // Reset session cart
+        session()->forget('cart');
+        $this->cart = [];
+
+        // Redirect to WhatsApp URL
+        return $this->redirect($url, navigate: false);
     }
 
     /**

@@ -239,8 +239,8 @@ Implementasi menggunakan Laravel 11 full-stack dengan Blade Templates, Livewire 
     - **Property 7: Validasi form pemesan menolak data yang tidak valid**
     - **Validates: Requirements 4.6**
 
-- [ ] 12. Implementasi WhatsApp Message Builder dan Pengiriman Pesanan
-  - [~] 12.1 Buat WhatsAppMessageBuilder service
+- [x] 12. Implementasi WhatsApp Message Builder dan Pengiriman Pesanan
+  - [x] 12.1 Buat WhatsAppMessageBuilder service
     - Buat `app/Services/WhatsAppMessageBuilder.php`
     - Method `build(string $phone, string $storeName, array $cart, array $buyer, ?string $template = null): string`
     - Format pesan terstruktur: header toko, detail pesanan (no, nama, varian, qty, harga), separator, total estimasi, data pemesan (nama, WA, alamat, catatan)
@@ -249,7 +249,7 @@ Implementasi menggunakan Laravel 11 full-stack dengan Blade Templates, Livewire 
     - Jika template custom disediakan, gunakan template tersebut sebagai format dasar
     - _Requirements: 5.1, 5.2, 10.2_
 
-  - [~] 12.2 Implementasi method sendToWhatsApp() di CartManager
+  - [x] 12.2 Implementasi method sendToWhatsApp() di CartManager
     - Validasi form data pemesan
     - Ambil store settings (wa_numbers, store_name, wa_template)
     - Implementasi rotasi nomor WA: track penggunaan terakhir di session/cache, pilih nomor berikutnya
