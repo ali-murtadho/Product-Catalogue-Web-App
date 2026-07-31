@@ -179,8 +179,8 @@ Implementasi menggunakan Laravel 11 full-stack dengan Blade Templates, Livewire 
     - **Property 2: Pengurutan produk menghasilkan urutan yang benar**
     - **Validates: Requirements 1.4, 2.5**
 
-- [ ] 10. Implementasi Halaman Detail Produk
-  - [~] 10.1 Buat ProductDetailController dan halaman detail produk
+- [x] 10. Implementasi Halaman Detail Produk
+  - [x] 10.1 Buat ProductDetailController dan halaman detail produk
     - Buat `app/Http/Controllers/Public/ProductDetailController.php` dengan method `show`
     - Route: `GET /produk/{product:slug}`
     - Load product with relations: images (ordered by sort_order), variants
