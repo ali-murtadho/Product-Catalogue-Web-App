@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\StoreSetting;
 use App\Services\WhatsAppMessageBuilder;
+use Illuminate\Support\Facades\RateLimiter;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
 
@@ -38,6 +39,14 @@ class CartManager extends Component
      */
     public function addItem(int $productId, ?int $variantId = null, int $qty = 1): void
     {
+        // Rate limit: 20 cart operations per minute per IP
+        $key = 'cart:' . request()->ip();
+        if (RateLimiter::tooManyAttempts($key, 20)) {
+            session()->flash('error', 'Terlalu banyak permintaan. Silakan coba lagi nanti.');
+            return;
+        }
+        RateLimiter::hit($key, 60);
+
         $product = Product::with(['primaryImage', 'variants'])->find($productId);
 
         if (!$product) {
@@ -214,6 +223,14 @@ class CartManager extends Component
      */
     public function sendToWhatsApp()
     {
+        // Rate limit: 5 order submissions per minute per IP
+        $key = 'order:' . request()->ip();
+        if (RateLimiter::tooManyAttempts($key, 5)) {
+            session()->flash('error', 'Terlalu banyak permintaan pengiriman pesanan. Silakan coba lagi nanti.');
+            return;
+        }
+        RateLimiter::hit($key, 60);
+
         $this->validate();
 
         if (empty($this->cart)) {

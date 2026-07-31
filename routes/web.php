@@ -8,10 +8,10 @@ use App\Http\Controllers\Public\ProductDetailController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/katalog', [CatalogController::class, 'index'])->name('catalog.index');
-Route::get('/katalog/{category:slug}', [CatalogController::class, 'byCategory'])->name('catalog.category');
+Route::get('/katalog', [CatalogController::class, 'index'])->middleware('throttle:public-search')->name('catalog.index');
+Route::get('/katalog/{category:slug}', [CatalogController::class, 'byCategory'])->middleware('throttle:public-search')->name('catalog.category');
 Route::get('/produk/{product:slug}', [ProductDetailController::class, 'show'])->name('product.show');
-Route::get('/keranjang', [CartController::class, 'index'])->name('cart.index');
+Route::get('/keranjang', [CartController::class, 'index'])->middleware('throttle:cart-operations')->name('cart.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

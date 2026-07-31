@@ -5,30 +5,25 @@
 
 @section('content')
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {{-- Page Header --}}
+        {{-- Breadcrumb --}}
         <div class="mb-6">
-            <h1 class="text-2xl md:text-3xl font-bold text-gray-900">
+            <x-breadcrumb :items="$currentCategory
+                ? [
+                    ['label' => 'Katalog', 'url' => route('catalog.index')],
+                    ['label' => $currentCategory->name],
+                ]
+                : [
+                    ['label' => 'Katalog'],
+                ]"
+            />
+
+            <h1 class="mt-3 text-2xl md:text-3xl font-bold text-gray-900">
                 @if($currentCategory)
                     {{ $currentCategory->name }}
                 @else
                     Katalog Produk
                 @endif
             </h1>
-
-            {{-- Breadcrumb --}}
-            <nav class="mt-2 text-sm text-gray-500" aria-label="Breadcrumb">
-                <ol class="flex items-center space-x-2">
-                    <li><a href="{{ url('/') }}" class="hover:text-green-600 transition-colors">Beranda</a></li>
-                    <li><span class="text-gray-300">/</span></li>
-                    @if($currentCategory)
-                        <li><a href="{{ url('/katalog') }}" class="hover:text-green-600 transition-colors">Katalog</a></li>
-                        <li><span class="text-gray-300">/</span></li>
-                        <li class="text-gray-900 font-medium">{{ $currentCategory->name }}</li>
-                    @else
-                        <li class="text-gray-900 font-medium">Katalog</li>
-                    @endif
-                </ol>
-            </nav>
         </div>
 
         {{-- Category Pills (quick navigation) --}}

@@ -7,19 +7,15 @@
 @section('content')
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" x-data="productDetail()">
         {{-- Breadcrumb --}}
-        <nav class="mb-6 text-sm text-gray-500" aria-label="Breadcrumb">
-            <ol class="flex items-center space-x-2">
-                <li><a href="{{ url('/') }}" class="hover:text-green-600">Beranda</a></li>
-                <li><span>/</span></li>
-                <li><a href="{{ url('/katalog') }}" class="hover:text-green-600">Katalog</a></li>
-                @if($product->category)
-                    <li><span>/</span></li>
-                    <li><a href="{{ url('/katalog/' . $product->category->slug) }}" class="hover:text-green-600">{{ $product->category->name }}</a></li>
-                @endif
-                <li><span>/</span></li>
-                <li class="text-gray-900 font-medium truncate">{{ $product->name }}</li>
-            </ol>
-        </nav>
+        <div class="mb-6">
+            <x-breadcrumb :items="array_filter([
+                ['label' => 'Katalog', 'url' => route('catalog.index')],
+                $product->category
+                    ? ['label' => $product->category->name, 'url' => route('catalog.category', $product->category->slug)]
+                    : null,
+                ['label' => $product->name],
+            ])" />
+        </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {{-- Photo Gallery --}}
@@ -44,6 +40,7 @@
                                 src="{{ asset('storage/' . $image->image_path) }}"
                                 alt="{{ $product->name }}"
                                 class="w-full h-full object-cover"
+                                loading="lazy"
                                 x-transition:enter="transition ease-out duration-200"
                                 x-transition:enter-start="opacity-0"
                                 x-transition:enter-end="opacity-100"
@@ -68,7 +65,7 @@
                                 class="flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden focus:outline-none focus:ring-2 focus:ring-green-600"
                                 aria-label="Lihat gambar {{ $index + 1 }}"
                             >
-                                <img src="{{ asset('storage/' . $image->image_path) }}" alt="{{ $product->name }} - Gambar {{ $index + 1 }}" class="w-full h-full object-cover">
+                                <img src="{{ asset('storage/' . $image->image_path) }}" alt="{{ $product->name }} - Gambar {{ $index + 1 }}" class="w-full h-full object-cover" loading="lazy">
                             </button>
                         @endforeach
                     </div>

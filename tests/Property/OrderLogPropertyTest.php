@@ -94,19 +94,23 @@ class OrderLogPropertyTest extends TestCase
     }
 
     /**
-     * Generate a cart with 1-5 items, each with name, variant, qty, price.
+     * Generate a cart with 1-3 items, each with name, variant, qty, price.
+     * Uses fixed-size tuple to avoid memory leaks from Generator\bind.
      */
     private function cartGenerator(): Generator
     {
-        return Generator\bind(
-            Generator\choose(1, 5),
-            function (int $count) {
-                $generators = [];
-                for ($i = 0; $i < $count; $i++) {
-                    $generators[] = $this->cartItemGenerator();
-                }
-                return Generator\tuple(...$generators);
-            }
+        return Generator\map(
+            function (array $data) {
+                $count = $data[0];
+                $items = array_slice([$data[1], $data[2], $data[3]], 0, $count);
+                return $items;
+            },
+            Generator\tuple(
+                Generator\choose(1, 3),
+                $this->cartItemGenerator(),
+                $this->cartItemGenerator(),
+                $this->cartItemGenerator()
+            )
         );
     }
 

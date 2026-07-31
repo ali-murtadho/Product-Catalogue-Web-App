@@ -44,7 +44,7 @@ Implementasi menggunakan Laravel 11 full-stack dengan Blade Templates, Livewire 
     - **Validates: Requirements 7.3, 12.5**
 
 - [ ] 3. Implementasi Manajemen Kategori (Admin)
-  - [~] 3.1 Buat CategoryController (Admin) dengan CRUD lengkap
+  - [ ] 3.1 Buat CategoryController (Admin) dengan CRUD lengkap
     - Implementasi `index`, `create`, `store`, `edit`, `update`, `destroy` methods
     - Validasi input: name (required, max:255), slug (auto-generate), image (nullable, max:2048kb, mimes:jpg,png,webp)
     - Upload gambar kategori ke `storage/app/public/categories/`
@@ -259,7 +259,7 @@ Implementasi menggunakan Laravel 11 full-stack dengan Blade Templates, Livewire 
     - Return redirect ke WhatsApp URL
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5_
 
-  - [-] 12.3 Write property test untuk WhatsApp Message Builder
+  - [ ] 12.3 Write property test untuk WhatsApp Message Builder
     - **Property 8: WhatsApp Message Builder menghasilkan URL yang lengkap dan valid**
     - **Validates: Requirements 5.1, 5.2**
 
@@ -275,21 +275,21 @@ Implementasi menggunakan Laravel 11 full-stack dengan Blade Templates, Livewire 
     - **Property 11: Rotasi nomor WhatsApp mendistribusikan secara merata**
     - **Validates: Requirements 5.5**
 
-- [~] 13. Checkpoint - Pastikan alur pemesanan end-to-end berfungsi
+- [x] 13. Checkpoint - Pastikan alur pemesanan end-to-end berfungsi
   - Pastikan alur lengkap: browse katalog → detail produk → tambah keranjang → kirim ke WA bekerja
   - Pastikan order log tercatat dengan benar
   - Jalankan seluruh tests
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 14. Implementasi Floating Widget dan Navigasi Kontak
-  - [~] 14.1 Buat floating WhatsApp widget dan footer social links
+- [x] 14. Implementasi Floating Widget dan Navigasi Kontak
+  - [ ] 14.1 Buat floating WhatsApp widget dan footer social links
     - Tambahkan floating widget di layout publik (`layouts/app.blade.php`): fixed position bottom-right, icon WA, link ke nomor CS dari store_settings
     - Tambahkan section footer: logo toko, alamat, tautan media sosial (Instagram, TikTok, Facebook) dari store_settings.social_links
     - Styling responsive: widget tidak mengganggu konten di mobile
     - _Requirements: 6.1, 6.2, 6.3_
 
-- [ ] 15. Implementasi Keamanan dan Optimasi
-  - [~] 15.1 Pastikan semua security measures terimplementasi
+- [x] 15. Implementasi Keamanan dan Optimasi
+  - [x] 15.1 Pastikan semua security measures terimplementasi
     - Verifikasi semua Blade templates menggunakan `{{ }}` (escape) bukan `{!! !!}` untuk user-generated content
     - Verifikasi semua form menggunakan `@csrf` directive
     - Verifikasi semua controller methods memiliki validation rules
@@ -297,15 +297,15 @@ Implementasi menggunakan Laravel 11 full-stack dengan Blade Templates, Livewire 
     - Konfigurasi `config/session.php` untuk security (httponly, secure, samesite)
     - _Requirements: 12.2, 12.3, 12.4_
 
-  - [~] 15.2 Implementasi optimasi gambar dan performa
+  - [ ] 15.2 Implementasi optimasi gambar dan performa
     - Tambahkan image compression pada upload (menggunakan Intervention Image atau GD library)
     - Validasi file size maksimum 2MB pada semua upload endpoints
     - Pastikan semua gambar di katalog/beranda memiliki `loading="lazy"`
     - Tambahkan database indexes pada kolom yang sering di-query: products.category_id, products.slug, categories.slug, products.is_featured
     - _Requirements: 11.2, 11.3_
 
-- [ ] 16. Seeding dan Finalisasi
-  - [~] 16.1 Buat database seeders untuk data awal
+- [x] 16. Seeding dan Finalisasi
+  - [x] 16.1 Buat database seeders untuk data awal
     - Buat `AdminUserSeeder`: admin user default
     - Buat `StoreSettingSeeder`: setting toko default dengan nomor WA contoh
     - Buat `CategorySeeder`: beberapa kategori contoh
@@ -313,14 +313,14 @@ Implementasi menggunakan Laravel 11 full-stack dengan Blade Templates, Livewire 
     - Daftarkan semua seeders di `DatabaseSeeder.php`
     - _Requirements: Semua (data awal untuk testing)_
 
-  - [~] 16.2 Finalisasi routing dan navigasi
+  - [ ] 16.2 Finalisasi routing dan navigasi
     - Pastikan semua routes terdaftar dan berfungsi (publik + admin)
     - Tambahkan breadcrumb navigation di halaman katalog dan detail produk
     - Pastikan navigasi admin sidebar highlight menu aktif
     - Verifikasi mobile responsiveness di semua halaman
     - _Requirements: 11.1_
 
-- [~] 17. Final Checkpoint - Full system test
+- [x] 17. Final Checkpoint - Full system test
   - Jalankan seluruh test suite (unit + property + feature tests)
   - Verifikasi alur lengkap sebagai pembeli: beranda → katalog → filter → detail → keranjang → WA
   - Verifikasi alur lengkap sebagai admin: login → dashboard → CRUD produk → CRUD kategori → settings

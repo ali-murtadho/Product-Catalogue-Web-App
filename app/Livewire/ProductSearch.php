@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Product;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\RateLimiter;
 use Livewire\Component;
 
 class ProductSearch extends Component
@@ -27,6 +28,14 @@ class ProductSearch extends Component
             $this->results = collect();
             return;
         }
+
+        // Rate limit: 30 searches per minute per IP
+        $key = 'search:' . request()->ip();
+        if (RateLimiter::tooManyAttempts($key, 30)) {
+            $this->results = collect();
+            return;
+        }
+        RateLimiter::hit($key, 60);
 
         $searchTerm = '%' . trim($this->query) . '%';
 
