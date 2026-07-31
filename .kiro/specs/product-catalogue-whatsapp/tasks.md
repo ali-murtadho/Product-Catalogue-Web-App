@@ -119,8 +119,8 @@ Implementasi menggunakan Laravel 11 full-stack dengan Blade Templates, Livewire 
     - **Property 19: Validasi nomor WhatsApp format internasional**
     - **Validates: Requirements 10.3**
 
-- [ ] 7. Implementasi Dashboard Admin
-  - [~] 7.1 Buat DashboardController dan view
+- [x] 7. Implementasi Dashboard Admin
+  - [x] 7.1 Buat DashboardController dan view
     - Query produk/varian dengan stok <= 2 (dan is_unlimited = false) untuk low stock alerts
     - Query order_logs terbaru dengan pagination
     - Tampilkan statistik ringkas: total produk, total kategori, total order logs
@@ -131,8 +131,8 @@ Implementasi menggunakan Laravel 11 full-stack dengan Blade Templates, Livewire 
     - **Property 12: Peringatan stok rendah menampilkan produk/varian yang benar**
     - **Validates: Requirements 7.1**
 
-- [ ] 8. Implementasi Halaman Publik - Beranda
-  - [~] 8.1 Buat HomeController dan halaman beranda
+- [x] 8. Implementasi Halaman Publik - Beranda
+  - [x] 8.1 Buat HomeController dan halaman beranda
     - Buat `app/Http/Controllers/Public/HomeController.php`
     - Query: kategori (ordered by sort_order), produk featured (is_featured = true, limit 8), produk terbaru (latest, limit 8)
     - Buat layout publik `resources/views/layouts/app.blade.php` dengan header, footer, floating WA widget
@@ -141,7 +141,7 @@ Implementasi menggunakan Laravel 11 full-stack dengan Blade Templates, Livewire 
     - Implementasi meta tags untuk homepage
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 6.1, 6.3, 11.2, 11.4_
 
-  - [~] 8.2 Buat Livewire ProductSearch component untuk pencarian real-time di beranda
+  - [x] 8.2 Buat Livewire ProductSearch component untuk pencarian real-time di beranda
     - Buat `app/Livewire/ProductSearch.php` dengan method `search()` — query produk by nama/deskripsi (LIKE atau full-text)
     - Debounce input 300ms menggunakan `wire:model.live.debounce.300ms`
     - Tampilkan dropdown hasil pencarian dengan gambar, nama, harga
@@ -152,15 +152,15 @@ Implementasi menggunakan Laravel 11 full-stack dengan Blade Templates, Livewire 
     - **Property 3: Pencarian real-time mengembalikan hasil yang relevan**
     - **Validates: Requirements 1.5**
 
-- [ ] 9. Implementasi Katalog dan Filter Produk
-  - [~] 9.1 Buat CatalogController dan halaman katalog
+- [x] 9. Implementasi Katalog dan Filter Produk
+  - [x] 9.1 Buat CatalogController dan halaman katalog
     - Buat `app/Http/Controllers/Public/CatalogController.php` dengan methods `index` dan `byCategory`
     - Route: `GET /katalog` (semua produk), `GET /katalog/{category:slug}` (per kategori)
     - Buat `resources/views/public/catalog.blade.php` dengan grid produk responsif (2 kolom mobile, 3-4 kolom desktop)
     - Integrasikan Livewire ProductFilter component
     - _Requirements: 2.1, 11.1_
 
-  - [~] 9.2 Buat Livewire ProductFilter component
+  - [x] 9.2 Buat Livewire ProductFilter component
     - Buat `app/Livewire/ProductFilter.php` dengan properties: category, min_price, max_price, in_stock_only, sort_by
     - Implementasi query builder yang menerapkan semua filter secara dinamis
     - Filter kategori: where category_id = selected
