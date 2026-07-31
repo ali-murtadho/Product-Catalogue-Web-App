@@ -259,19 +259,19 @@ Implementasi menggunakan Laravel 11 full-stack dengan Blade Templates, Livewire 
     - Return redirect ke WhatsApp URL
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5_
 
-  - [ ]* 12.3 Write property test untuk WhatsApp Message Builder
+  - [-] 12.3 Write property test untuk WhatsApp Message Builder
     - **Property 8: WhatsApp Message Builder menghasilkan URL yang lengkap dan valid**
     - **Validates: Requirements 5.1, 5.2**
 
-  - [ ]* 12.4 Write property test untuk order log akurasi
+  - [x] 12.4 Write property test untuk order log akurasi
     - **Property 9: Order log mencatat snapshot pesanan secara akurat**
     - **Validates: Requirements 5.3**
 
-  - [ ]* 12.5 Write property test untuk reset session setelah kirim
+  - [x] 12.5 Write property test untuk reset session setelah kirim
     - **Property 10: Session keranjang kosong setelah pengiriman pesanan**
     - **Validates: Requirements 5.4**
 
-  - [ ]* 12.6 Write property test untuk rotasi nomor WhatsApp
+  - [x] 12.6 Write property test untuk rotasi nomor WhatsApp
     - **Property 11: Rotasi nomor WhatsApp mendistribusikan secara merata**
     - **Validates: Requirements 5.5**
 
