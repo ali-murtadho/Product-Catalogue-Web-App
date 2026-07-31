@@ -203,8 +203,8 @@ Implementasi menggunakan Laravel 11 full-stack dengan Blade Templates, Livewire 
     - **Property 20: Harga diskon ditampilkan dengan format coret yang benar**
     - **Validates: Requirements 3.2**
 
-- [ ] 11. Implementasi Keranjang Belanja (Cart)
-  - [~] 11.1 Buat Livewire CartManager component
+- [x] 11. Implementasi Keranjang Belanja (Cart)
+  - [x] 11.1 Buat Livewire CartManager component
     - Buat `app/Livewire/CartManager.php` dengan state: cart array, name, phone, address, notes
     - Method `addItem($productId, $variantId, $qty)`:
       - Validasi stok tersedia (query real-time dari DB)
@@ -218,7 +218,7 @@ Implementasi menggunakan Laravel 11 full-stack dengan Blade Templates, Livewire 
     - Computed properties: subtotals per item (price * qty), grand total
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5_
 
-  - [~] 11.2 Buat halaman keranjang dan form pemesan
+  - [x] 11.2 Buat halaman keranjang dan form pemesan
     - Buat `CartController` dengan method `index` yang merender halaman keranjang
     - Buat `resources/views/public/cart.blade.php` dengan Livewire CartManager
     - Tampilkan: tabel item (gambar, nama, varian, harga satuan, qty input, subtotal, tombol hapus)

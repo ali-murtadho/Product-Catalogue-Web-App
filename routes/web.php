@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Public\CartController;
 use App\Http\Controllers\Public\CatalogController;
 use App\Http\Controllers\Public\HomeController;
 use App\Http\Controllers\Public\ProductDetailController;
@@ -10,6 +11,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/katalog', [CatalogController::class, 'index'])->name('catalog.index');
 Route::get('/katalog/{category:slug}', [CatalogController::class, 'byCategory'])->name('catalog.category');
 Route::get('/produk/{product:slug}', [ProductDetailController::class, 'show'])->name('product.show');
+Route::get('/keranjang', [CartController::class, 'index'])->name('cart.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
