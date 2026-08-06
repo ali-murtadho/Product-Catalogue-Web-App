@@ -408,6 +408,32 @@ Terima kasih! 🙏
 
 ---
 
+## Fitur Dual Bahasa (i18n)
+
+Website mendukung 2 bahasa: **Indonesia (ID)** dan **English (EN)**.
+
+**Cara kerja:**
+- Tombol language switcher tersedia di navbar (halaman publik) dan header admin
+- Pilihan bahasa disimpan di session
+- Middleware `SetLocale` membaca session dan set locale di setiap request
+- Semua teks UI menggunakan helper `__('ui.key')` yang merujuk ke file translation
+
+**Struktur file:**
+```
+lang/
+├── id/
+│   └── ui.php    ← Terjemahan Bahasa Indonesia
+└── en/
+    └── ui.php    ← Terjemahan Bahasa Inggris
+```
+
+**Route:**
+- `GET /language/{locale}` — Ganti bahasa (locale: `id` atau `en`)
+
+**Default:** Indonesia (`id`)
+
+---
+
 ## Cara Menjalankan
 
 ```bash
