@@ -50,20 +50,45 @@
                     {{-- Language Switcher --}}
                     <div class="relative" x-data="{ open: false }">
                         <button @click="open = !open" class="flex items-center text-gray-600 hover:text-green-600 transition-colors text-sm">
-                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
-                            </svg>
-                            {{ app()->getLocale() === 'id' ? 'ID' : 'EN' }}
+                            @if(app()->getLocale() === 'id')
+                                {{-- Bendera Indonesia --}}
+                                <svg class="w-5 h-4 mr-1.5 rounded-sm shadow-sm" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="640" height="240" fill="#e70011"/>
+                                    <rect y="240" width="640" height="240" fill="#fff"/>
+                                </svg>
+                                <span>&nbsp;ID</span>
+                            @else
+                                {{-- Bendera UK --}}
+                                <svg class="w-5 h-4 mr-1.5 rounded-sm shadow-sm" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="640" height="480" fill="#012169"/>
+                                    <path d="M75 0l244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0h75z" fill="#fff"/>
+                                    <path d="M424 281l216 159v40L369 281h55zm-184 20l6 35L54 480H0l240-179zM640 0v3L391 191l2-44L590 0h50zM0 0l239 176h-60L0 42V0z" fill="#C8102E"/>
+                                    <path d="M241 0v480h160V0H241zM0 160v160h640V160H0z" fill="#fff"/>
+                                    <path d="M0 193v96h640v-96H0zM273 0v480h96V0h-96z" fill="#C8102E"/>
+                                </svg>
+                                <span>&nbsp;EN</span>
+                            @endif
                             <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </button>
-                        <div x-show="open" @click.away="open = false" x-cloak class="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-md shadow-lg z-50">
-                            <a href="{{ route('language.switch', 'id') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {{ app()->getLocale() === 'id' ? 'font-semibold bg-gray-50' : '' }}">
-                                🇮🇩 Indonesia
+                        <div x-show="open" @click.away="open = false" x-cloak class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+                            <a href="{{ route('language.switch', 'id') }}" class="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100 {{ app()->getLocale() === 'id' ? 'font-semibold bg-gray-50' : '' }}">
+                                <svg class="w-5 h-4 mr-2 rounded-sm shadow-sm" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="640" height="240" fill="#e70011"/>
+                                    <rect y="240" width="640" height="240" fill="#fff"/>
+                                </svg>
+                                Indonesia
                             </a>
-                            <a href="{{ route('language.switch', 'en') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {{ app()->getLocale() === 'en' ? 'font-semibold bg-gray-50' : '' }}">
-                                🇬🇧 English
+                            <a href="{{ route('language.switch', 'en') }}" class="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100 {{ app()->getLocale() === 'en' ? 'font-semibold bg-gray-50' : '' }}">
+                                <svg class="w-5 h-4 mr-2 rounded-sm shadow-sm" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="640" height="480" fill="#012169"/>
+                                    <path d="M75 0l244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0h75z" fill="#fff"/>
+                                    <path d="M424 281l216 159v40L369 281h55zm-184 20l6 35L54 480H0l240-179zM640 0v3L391 191l2-44L590 0h50zM0 0l239 176h-60L0 42V0z" fill="#C8102E"/>
+                                    <path d="M241 0v480h160V0H241zM0 160v160h640V160H0z" fill="#fff"/>
+                                    <path d="M0 193v96h640v-96H0zM273 0v480h96V0h-96z" fill="#C8102E"/>
+                                </svg>
+                                English
                             </a>
                         </div>
                     </div>
@@ -84,8 +109,23 @@
                 <a href="{{ url('/keranjang') }}" class="block py-2 text-gray-600 hover:text-green-600">{{ __('ui.cart') }}</a>
                 <div class="flex items-center space-x-3 pt-2 mt-2 border-t border-gray-200">
                     <span class="text-sm text-gray-500">{{ __('ui.language') }}:</span>
-                    <a href="{{ route('language.switch', 'id') }}" class="text-sm {{ app()->getLocale() === 'id' ? 'font-bold text-green-600' : 'text-gray-600' }}">🇮🇩 ID</a>
-                    <a href="{{ route('language.switch', 'en') }}" class="text-sm {{ app()->getLocale() === 'en' ? 'font-bold text-green-600' : 'text-gray-600' }}">🇬🇧 EN</a>
+                    <a href="{{ route('language.switch', 'id') }}" class="inline-flex items-center text-sm {{ app()->getLocale() === 'id' ? 'font-bold text-green-600' : 'text-gray-600' }}">
+                        <svg class="w-5 h-4 mr-1 rounded-sm shadow-sm" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="640" height="240" fill="#e70011"/>
+                            <rect y="240" width="640" height="240" fill="#fff"/>
+                        </svg>
+                        &nbsp;ID
+                    </a>
+                    <a href="{{ route('language.switch', 'en') }}" class="inline-flex items-center text-sm {{ app()->getLocale() === 'en' ? 'font-bold text-green-600' : 'text-gray-600' }}">
+                        <svg class="w-5 h-4 mr-1 rounded-sm shadow-sm" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="640" height="480" fill="#012169"/>
+                            <path d="M75 0l244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0h75z" fill="#fff"/>
+                            <path d="M424 281l216 159v40L369 281h55zm-184 20l6 35L54 480H0l240-179zM640 0v3L391 191l2-44L590 0h50zM0 0l239 176h-60L0 42V0z" fill="#C8102E"/>
+                            <path d="M241 0v480h160V0H241zM0 160v160h640V160H0z" fill="#fff"/>
+                            <path d="M0 193v96h640v-96H0zM273 0v480h96V0h-96z" fill="#C8102E"/>
+                        </svg>
+                        &nbsp;EN
+                    </a>
                 </div>
             </div>
         </div>
