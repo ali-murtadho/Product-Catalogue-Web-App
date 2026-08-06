@@ -18,12 +18,12 @@
             <svg class="w-20 h-20 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"></path>
             </svg>
-            <p class="text-gray-500 text-lg mb-4">Keranjang belanja kosong.</p>
+            <p class="text-gray-500 text-lg mb-4">{{ __('ui.cart_empty') }}</p>
             <a href="{{ route('catalog.index') }}" class="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                 </svg>
-                Jelajahi Katalog
+                {{ __('ui.continue_shopping') }}
             </a>
         </div>
     @else
@@ -35,11 +35,11 @@
                     <table class="w-full">
                         <thead class="bg-gray-50 border-b">
                             <tr>
-                                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Produk</th>
-                                <th class="px-4 py-3 text-center text-sm font-semibold text-gray-700">Harga Satuan</th>
-                                <th class="px-4 py-3 text-center text-sm font-semibold text-gray-700">Jumlah</th>
-                                <th class="px-4 py-3 text-right text-sm font-semibold text-gray-700">Subtotal</th>
-                                <th class="px-4 py-3 text-center text-sm font-semibold text-gray-700">Aksi</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">{{ __('ui.product') }}</th>
+                                <th class="px-4 py-3 text-center text-sm font-semibold text-gray-700">{{ __('ui.price') }}</th>
+                                <th class="px-4 py-3 text-center text-sm font-semibold text-gray-700">{{ __('ui.quantity') }}</th>
+                                <th class="px-4 py-3 text-right text-sm font-semibold text-gray-700">{{ __('ui.subtotal') }}</th>
+                                <th class="px-4 py-3 text-center text-sm font-semibold text-gray-700">{{ __('ui.action') }}</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y">
@@ -177,7 +177,7 @@
                 {{-- Grand Total Summary --}}
                 <div class="mt-6 bg-white rounded-lg shadow p-4">
                     <div class="flex justify-between items-center">
-                        <span class="text-lg font-semibold text-gray-700">Total Keseluruhan</span>
+                        <span class="text-lg font-semibold text-gray-700">{{ __('ui.total') }}</span>
                         <span class="text-xl font-bold text-green-600">Rp {{ number_format($grandTotal, 0, ',', '.') }}</span>
                     </div>
                 </div>
@@ -186,19 +186,19 @@
             {{-- Buyer Information Form --}}
             <div class="lg:col-span-1">
                 <div class="bg-white rounded-lg shadow p-6 sticky top-24">
-                    <h2 class="text-lg font-bold text-gray-900 mb-4">Data Pemesan</h2>
+                    <h2 class="text-lg font-bold text-gray-900 mb-4">{{ __('ui.buyer_info') }}</h2>
 
                     <form wire:submit="sendToWhatsApp" class="space-y-4">
                         {{-- Nama Pemesan --}}
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
-                                Nama Pemesan <span class="text-red-500">*</span>
+                                {{ __('ui.name') }} <span class="text-red-500">*</span>
                             </label>
                             <input type="text"
                                    id="name"
                                    wire:model.blur="name"
                                    class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 @error('name') border-red-500 @enderror"
-                                   placeholder="Masukkan nama lengkap">
+                                   placeholder="{{ __('ui.name') }}">
                             @error('name')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -207,13 +207,13 @@
                         {{-- Nomor WhatsApp --}}
                         <div>
                             <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">
-                                Nomor WhatsApp <span class="text-red-500">*</span>
+                                {{ __('ui.phone') }} <span class="text-red-500">*</span>
                             </label>
                             <input type="text"
                                    id="phone"
                                    wire:model.blur="phone"
                                    class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 @error('phone') border-red-500 @enderror"
-                                   placeholder="Contoh: 08123456789">
+                                   placeholder="08123456789">
                             @error('phone')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -222,13 +222,13 @@
                         {{-- Alamat Pengiriman --}}
                         <div>
                             <label for="address" class="block text-sm font-medium text-gray-700 mb-1">
-                                Alamat Pengiriman <span class="text-red-500">*</span>
+                                {{ __('ui.address') }} <span class="text-red-500">*</span>
                             </label>
                             <textarea id="address"
                                       wire:model.blur="address"
                                       rows="3"
                                       class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 @error('address') border-red-500 @enderror"
-                                      placeholder="Masukkan alamat lengkap pengiriman"></textarea>
+                                      placeholder="{{ __('ui.address') }}"></textarea>
                             @error('address')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -237,13 +237,13 @@
                         {{-- Catatan --}}
                         <div>
                             <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">
-                                Catatan (Opsional)
+                                {{ __('ui.notes') }}
                             </label>
                             <textarea id="notes"
                                       wire:model.blur="notes"
                                       rows="2"
                                       class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500"
-                                      placeholder="Tambahkan catatan untuk pesanan..."></textarea>
+                                      placeholder="{{ __('ui.notes_placeholder') }}"></textarea>
                         </div>
 
                         {{-- Submit Button --}}
@@ -258,8 +258,8 @@
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
                             </svg>
-                            <span wire:loading.remove wire:target="sendToWhatsApp">Kirim Pesanan via WhatsApp</span>
-                            <span wire:loading wire:target="sendToWhatsApp">Memproses...</span>
+                            <span wire:loading.remove wire:target="sendToWhatsApp">{{ __('ui.send_order_wa') }}</span>
+                            <span wire:loading wire:target="sendToWhatsApp">...</span>
                         </button>
                     </form>
                 </div>

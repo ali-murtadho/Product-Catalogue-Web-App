@@ -8,10 +8,10 @@
     <section class="relative bg-green-600 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
             <div class="text-center text-white">
-                <h1 class="text-3xl md:text-5xl font-bold mb-4">Selamat Datang di {{ $storeSetting->store_name ?? config('app.name') }}</h1>
-                <p class="text-lg md:text-xl mb-8 text-green-100">Temukan produk terbaik dan pesan langsung via WhatsApp</p>
+                <h1 class="text-3xl md:text-5xl font-bold mb-4">{{ __('ui.welcome_to', ['store' => $storeSetting->store_name ?? config('app.name')]) }}</h1>
+                <p class="text-lg md:text-xl mb-8 text-green-100">{{ __('ui.hero_subtitle') }}</p>
                 <a href="{{ url('/katalog') }}" class="inline-block bg-white text-green-600 font-semibold px-8 py-3 rounded-lg hover:bg-green-50 transition-colors">
-                    Lihat Katalog
+                    {{ __('ui.view_catalog') }}
                 </a>
             </div>
         </div>
@@ -25,7 +25,7 @@
     {{-- Kategori Grid --}}
     @if($categories->count() > 0)
         <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">Kategori Produk</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">{{ __('ui.product_categories') }}</h2>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 @foreach($categories as $category)
                     <a href="{{ url('/katalog/' . $category->slug) }}" class="group bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow text-center">
@@ -49,7 +49,7 @@
     @if($featuredProducts->count() > 0)
         <section class="bg-white py-12">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">Produk Unggulan</h2>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">{{ __('ui.featured_products') }}</h2>
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
                     @foreach($featuredProducts as $product)
                         <a href="{{ url('/produk/' . $product->slug) }}" class="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
@@ -85,7 +85,7 @@
     {{-- Produk Terbaru --}}
     @if($latestProducts->count() > 0)
         <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">Produk Terbaru</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">{{ __('ui.latest_products') }}</h2>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
                 @foreach($latestProducts as $product)
                     <a href="{{ url('/produk/' . $product->slug) }}" class="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow">

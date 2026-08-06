@@ -1,7 +1,7 @@
 @extends('layouts.public')
 
-@section('meta_title', ($currentCategory ? $currentCategory->name . ' - ' : '') . 'Katalog Produk')
-@section('meta_description', ($currentCategory ? 'Jelajahi produk kategori ' . $currentCategory->name : 'Jelajahi semua produk di katalog kami') . '. Pesan langsung via WhatsApp.')
+@section('meta_title', ($currentCategory ? $currentCategory->name . ' - ' : '') . __('ui.catalog'))
+@section('meta_description', ($currentCategory ? __('ui.products_in_category', ['category' => $currentCategory->name]) : __('ui.all_products')))
 
 @section('content')
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -9,11 +9,11 @@
         <div class="mb-6">
             <x-breadcrumb :items="$currentCategory
                 ? [
-                    ['label' => 'Katalog', 'url' => route('catalog.index')],
+                    ['label' => __('ui.catalog'), 'url' => route('catalog.index')],
                     ['label' => $currentCategory->name],
                 ]
                 : [
-                    ['label' => 'Katalog'],
+                    ['label' => __('ui.catalog')],
                 ]"
             />
 
@@ -21,7 +21,7 @@
                 @if($currentCategory)
                     {{ $currentCategory->name }}
                 @else
-                    Katalog Produk
+                    {{ __('ui.all_products') }}
                 @endif
             </h1>
         </div>
@@ -33,7 +33,7 @@
                     href="{{ url('/katalog') }}"
                     class="inline-block px-4 py-2 rounded-full text-sm font-medium transition-colors {{ !$currentCategory ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}"
                 >
-                    Semua
+                    {{ __('ui.view_all') }}
                 </a>
                 @foreach($categories as $cat)
                     <a

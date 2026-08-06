@@ -36,16 +36,37 @@
 
                 {{-- Navigation --}}
                 <nav class="hidden md:flex items-center space-x-6">
-                    <a href="{{ url('/') }}" class="text-gray-600 hover:text-green-600 transition-colors">Beranda</a>
-                    <a href="{{ url('/katalog') }}" class="text-gray-600 hover:text-green-600 transition-colors">Katalog</a>
+                    <a href="{{ url('/') }}" class="text-gray-600 hover:text-green-600 transition-colors">{{ __('ui.home') }}</a>
+                    <a href="{{ url('/katalog') }}" class="text-gray-600 hover:text-green-600 transition-colors">{{ __('ui.catalog') }}</a>
                     <a href="{{ url('/keranjang') }}" class="text-gray-600 hover:text-green-600 transition-colors">
                         <span class="inline-flex items-center">
                             <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"></path>
                             </svg>
-                            Keranjang
+                            {{ __('ui.cart') }}
                         </span>
                     </a>
+
+                    {{-- Language Switcher --}}
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" class="flex items-center text-gray-600 hover:text-green-600 transition-colors text-sm">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+                            </svg>
+                            {{ app()->getLocale() === 'id' ? 'ID' : 'EN' }}
+                            <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div x-show="open" @click.away="open = false" x-cloak class="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+                            <a href="{{ route('language.switch', 'id') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {{ app()->getLocale() === 'id' ? 'font-semibold bg-gray-50' : '' }}">
+                                🇮🇩 Indonesia
+                            </a>
+                            <a href="{{ route('language.switch', 'en') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {{ app()->getLocale() === 'en' ? 'font-semibold bg-gray-50' : '' }}">
+                                🇬🇧 English
+                            </a>
+                        </div>
+                    </div>
                 </nav>
 
                 {{-- Mobile Menu Button --}}
@@ -58,9 +79,14 @@
 
             {{-- Mobile Navigation --}}
             <div id="mobile-menu" class="hidden md:hidden pb-4">
-                <a href="{{ url('/') }}" class="block py-2 text-gray-600 hover:text-green-600">Beranda</a>
-                <a href="{{ url('/katalog') }}" class="block py-2 text-gray-600 hover:text-green-600">Katalog</a>
-                <a href="{{ url('/keranjang') }}" class="block py-2 text-gray-600 hover:text-green-600">Keranjang</a>
+                <a href="{{ url('/') }}" class="block py-2 text-gray-600 hover:text-green-600">{{ __('ui.home') }}</a>
+                <a href="{{ url('/katalog') }}" class="block py-2 text-gray-600 hover:text-green-600">{{ __('ui.catalog') }}</a>
+                <a href="{{ url('/keranjang') }}" class="block py-2 text-gray-600 hover:text-green-600">{{ __('ui.cart') }}</a>
+                <div class="flex items-center space-x-3 pt-2 mt-2 border-t border-gray-200">
+                    <span class="text-sm text-gray-500">{{ __('ui.language') }}:</span>
+                    <a href="{{ route('language.switch', 'id') }}" class="text-sm {{ app()->getLocale() === 'id' ? 'font-bold text-green-600' : 'text-gray-600' }}">🇮🇩 ID</a>
+                    <a href="{{ route('language.switch', 'en') }}" class="text-sm {{ app()->getLocale() === 'en' ? 'font-bold text-green-600' : 'text-gray-600' }}">🇬🇧 EN</a>
+                </div>
             </div>
         </div>
     </header>
@@ -87,17 +113,17 @@
 
                 {{-- Quick Links --}}
                 <div>
-                    <h3 class="text-white text-lg font-semibold mb-3">Navigasi</h3>
+                    <h3 class="text-white text-lg font-semibold mb-3">{{ __('ui.navigation') }}</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="{{ url('/') }}" class="hover:text-white transition-colors">Beranda</a></li>
-                        <li><a href="{{ url('/katalog') }}" class="hover:text-white transition-colors">Katalog</a></li>
-                        <li><a href="{{ url('/keranjang') }}" class="hover:text-white transition-colors">Keranjang</a></li>
+                        <li><a href="{{ url('/') }}" class="hover:text-white transition-colors">{{ __('ui.home') }}</a></li>
+                        <li><a href="{{ url('/katalog') }}" class="hover:text-white transition-colors">{{ __('ui.catalog') }}</a></li>
+                        <li><a href="{{ url('/keranjang') }}" class="hover:text-white transition-colors">{{ __('ui.cart') }}</a></li>
                     </ul>
                 </div>
 
                 {{-- Social Links --}}
                 <div>
-                    <h3 class="text-white text-lg font-semibold mb-3">Media Sosial</h3>
+                    <h3 class="text-white text-lg font-semibold mb-3">{{ __('ui.social_media') }}</h3>
                     <div class="flex space-x-4">
                         @if(!empty($storeSetting->social_links['instagram']))
                             <a href="{{ $storeSetting->social_links['instagram'] }}" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors" aria-label="Instagram">
@@ -119,7 +145,7 @@
             </div>
 
             <div class="border-t border-gray-700 mt-8 pt-8 text-sm text-center">
-                <p>&copy; {{ date('Y') }} {{ $storeSetting->store_name ?? config('app.name') }}. Semua hak dilindungi.</p>
+                <p>&copy; {{ date('Y') }} {{ $storeSetting->store_name ?? config('app.name') }}. {{ __('ui.all_rights_reserved') }}</p>
             </div>
         </div>
     </footer>

@@ -5,7 +5,17 @@ use App\Http\Controllers\Public\CartController;
 use App\Http\Controllers\Public\CatalogController;
 use App\Http\Controllers\Public\HomeController;
 use App\Http\Controllers\Public\ProductDetailController;
+use App\Http\Middleware\SetLocale;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+// Language switcher route
+Route::get('/language/{locale}', function (string $locale, Request $request) {
+    if (in_array($locale, SetLocale::SUPPORTED_LOCALES)) {
+        $request->session()->put('locale', $locale);
+    }
+    return redirect()->back();
+})->name('language.switch');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/katalog', [CatalogController::class, 'index'])->middleware('throttle:public-search')->name('catalog.index');
