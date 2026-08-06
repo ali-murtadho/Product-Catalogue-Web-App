@@ -7,6 +7,7 @@
 
     {{-- Meta Tags --}}
     <title>@yield('meta_title', $storeSetting->store_name ?? config('app.name', 'Toko Online'))</title>
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <meta name="description" content="@yield('meta_description', 'Katalog produk dan pemesanan via WhatsApp - ' . ($storeSetting->store_name ?? config('app.name')))">
     <meta property="og:title" content="@yield('meta_title', $storeSetting->store_name ?? config('app.name', 'Toko Online'))">
     <meta property="og:description" content="@yield('meta_description', 'Katalog produk dan pemesanan via WhatsApp')">
