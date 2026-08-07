@@ -22,9 +22,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
-<body class="font-sans antialiased bg-gray-50 text-gray-800">
+<body class="font-sans antialiased bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200" x-data x-init="if(localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark')">
     {{-- Header --}}
-    <header class="bg-white shadow-sm sticky top-0 z-40">
+    <header class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 {{-- Logo / Store Name --}}
@@ -32,14 +32,14 @@
                     @if($storeSetting->logo_path)
                         <img src="{{ asset('storage/' . $storeSetting->logo_path) }}" alt="{{ $storeSetting->store_name ?? 'Logo' }}" class="h-8 w-auto">
                     @endif
-                    <span class="text-xl font-bold text-gray-900">{{ $storeSetting->store_name ?? config('app.name') }}</span>
+                    <span class="text-xl font-bold text-gray-900 dark:text-white">{{ $storeSetting->store_name ?? config('app.name') }}</span>
                 </a>
 
                 {{-- Navigation --}}
                 <nav class="hidden md:flex items-center space-x-6">
-                    <a href="{{ url('/') }}" class="text-gray-600 hover:text-green-600 transition-colors">{{ __('ui.home') }}</a>
-                    <a href="{{ url('/katalog') }}" class="text-gray-600 hover:text-green-600 transition-colors">{{ __('ui.catalog') }}</a>
-                    <a href="{{ url('/keranjang') }}" class="text-gray-600 hover:text-green-600 transition-colors">
+                    <a href="{{ url('/') }}" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors">{{ __('ui.home') }}</a>
+                    <a href="{{ url('/katalog') }}" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors">{{ __('ui.catalog') }}</a>
+                    <a href="{{ url('/keranjang') }}" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors">
                         <span class="inline-flex items-center">
                             <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"></path>
@@ -47,6 +47,24 @@
                             {{ __('ui.cart') }}
                         </span>
                     </a>
+
+                    {{-- Dark/Light Theme Toggle --}}
+                    <button
+                        x-data="{ dark: localStorage.getItem('theme') === 'dark' }"
+                        x-init="$watch('dark', val => { localStorage.setItem('theme', val ? 'dark' : 'light'); document.documentElement.classList.toggle('dark', val) })"
+                        @click="dark = !dark"
+                        class="p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                        title="Toggle theme"
+                    >
+                        {{-- Sun icon (shown in dark mode) --}}
+                        <svg x-show="dark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        {{-- Moon icon (shown in light mode) --}}
+                        <svg x-show="!dark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
 
                     {{-- Language Switcher --}}
                     <div class="relative" x-data="{ open: false }">
@@ -73,15 +91,15 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </button>
-                        <div x-show="open" @click.away="open = false" x-cloak class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg z-50">
-                            <a href="{{ route('language.switch', 'id') }}" class="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100 {{ app()->getLocale() === 'id' ? 'font-semibold bg-gray-50' : '' }}">
+                        <div x-show="open" @click.away="open = false" x-cloak class="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50">
+                            <a href="{{ route('language.switch', 'id') }}" class="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 {{ app()->getLocale() === 'id' ? 'font-semibold bg-gray-50 dark:bg-gray-700' : '' }}">
                                 <svg class="w-5 h-4 mr-2 rounded-sm shadow-sm" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
                                     <rect width="640" height="240" fill="#e70011"/>
                                     <rect y="240" width="640" height="240" fill="#fff"/>
                                 </svg>
                                 Indonesia
                             </a>
-                            <a href="{{ route('language.switch', 'en') }}" class="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100 {{ app()->getLocale() === 'en' ? 'font-semibold bg-gray-50' : '' }}">
+                            <a href="{{ route('language.switch', 'en') }}" class="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 {{ app()->getLocale() === 'en' ? 'font-semibold bg-gray-50 dark:bg-gray-700' : '' }}">
                                 <svg class="w-5 h-4 mr-2 rounded-sm shadow-sm" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
                                     <rect width="640" height="480" fill="#012169"/>
                                     <path d="M75 0l244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0h75z" fill="#fff"/>
@@ -96,7 +114,7 @@
                 </nav>
 
                 {{-- Mobile Menu Button --}}
-                <button type="button" class="md:hidden p-2 rounded-md text-gray-600 hover:text-green-600 hover:bg-gray-100" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" aria-label="Toggle menu">
+                <button type="button" class="md:hidden p-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 hover:bg-gray-100 dark:hover:bg-gray-700" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" aria-label="Toggle menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
@@ -105,19 +123,38 @@
 
             {{-- Mobile Navigation --}}
             <div id="mobile-menu" class="hidden md:hidden pb-4">
-                <a href="{{ url('/') }}" class="block py-2 text-gray-600 hover:text-green-600">{{ __('ui.home') }}</a>
-                <a href="{{ url('/katalog') }}" class="block py-2 text-gray-600 hover:text-green-600">{{ __('ui.catalog') }}</a>
-                <a href="{{ url('/keranjang') }}" class="block py-2 text-gray-600 hover:text-green-600">{{ __('ui.cart') }}</a>
-                <div class="flex items-center space-x-3 pt-2 mt-2 border-t border-gray-200">
-                    <span class="text-sm text-gray-500">{{ __('ui.language') }}:</span>
-                    <a href="{{ route('language.switch', 'id') }}" class="inline-flex items-center text-sm {{ app()->getLocale() === 'id' ? 'font-bold text-green-600' : 'text-gray-600' }}">
+                <a href="{{ url('/') }}" class="block py-2 text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">{{ __('ui.home') }}</a>
+                <a href="{{ url('/katalog') }}" class="block py-2 text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">{{ __('ui.catalog') }}</a>
+                <a href="{{ url('/keranjang') }}" class="block py-2 text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">{{ __('ui.cart') }}</a>
+
+                {{-- Mobile Theme Toggle --}}
+                <div class="pt-2 mt-2 border-t border-gray-200 dark:border-gray-700">
+                    <button
+                        x-data="{ dark: localStorage.getItem('theme') === 'dark' }"
+                        x-init="$watch('dark', val => { localStorage.setItem('theme', val ? 'dark' : 'light'); document.documentElement.classList.toggle('dark', val) })"
+                        @click="dark = !dark"
+                        class="flex items-center py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400"
+                    >
+                        <svg x-show="dark" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg x-show="!dark" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                        <span x-text="dark ? 'Light Mode' : 'Dark Mode'"></span>
+                    </button>
+                </div>
+
+                <div class="flex items-center space-x-3 pt-2 mt-2 border-t border-gray-200 dark:border-gray-700">
+                    <span class="text-sm text-gray-500 dark:text-gray-400">{{ __('ui.language') }}:</span>
+                    <a href="{{ route('language.switch', 'id') }}" class="inline-flex items-center text-sm {{ app()->getLocale() === 'id' ? 'font-bold text-green-600' : 'text-gray-600 dark:text-gray-300' }}">
                         <svg class="w-5 h-4 mr-1 rounded-sm shadow-sm" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
                             <rect width="640" height="240" fill="#e70011"/>
                             <rect y="240" width="640" height="240" fill="#fff"/>
                         </svg>
                         &nbsp;ID
                     </a>
-                    <a href="{{ route('language.switch', 'en') }}" class="inline-flex items-center text-sm {{ app()->getLocale() === 'en' ? 'font-bold text-green-600' : 'text-gray-600' }}">
+                    <a href="{{ route('language.switch', 'en') }}" class="inline-flex items-center text-sm {{ app()->getLocale() === 'en' ? 'font-bold text-green-600' : 'text-gray-600 dark:text-gray-300' }}">
                         <svg class="w-5 h-4 mr-1 rounded-sm shadow-sm" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
                             <rect width="640" height="480" fill="#012169"/>
                             <path d="M75 0l244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0h75z" fill="#fff"/>
